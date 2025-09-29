@@ -1,0 +1,11 @@
+# IDE
+.idea/
+*.iml
+
+# Go build
+bin/
+*.exe
+
+# OS files
+.DS_Store
+Thumbs.db

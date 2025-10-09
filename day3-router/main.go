@@ -1,21 +1,34 @@
 package main
 
 import (
-  "fmt"
+	"gee"
+	"net/http"
 )
 
-//TIP <p>To run your code, right-click the code and select <b>Run</b>.</p> <p>Alternatively, click
-// the <icon src="AllIcons.Actions.Execute"/> icon in the gutter and select the <b>Run</b> menu item from here.</p>
+/*
+可以用Postman进行测试
+也可以用curl工具
+$ curl "http://localhost:10020/hello/BastienHyde"
+hello BastienHyde, you're at /hello/BastienHyde
 
+$ curl "http://localhost:10020/assets/css/BastienHyde.css"
+{"filepath":"css/BastienHyde.css"}
+*/
 func main() {
-  //TIP <p>Press <shortcut actionId="ShowIntentionActions"/> when your caret is at the underlined text
-  // to see how GoLand suggests fixing the warning.</p><p>Alternatively, if available, click the lightbulb to view possible fixes.</p>
-  s := "gopher"
-  fmt.Printf("Hello and welcome, %s!\n", s)
-
-  for i := 1; i <= 5; i++ {
-	//TIP <p>To start your debugging session, right-click your code in the editor and select the Debug option.</p> <p>We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-	// for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.</p>
-	fmt.Println("i =", 100/i)
-  }
+	r := gee.New()
+	r.GET("/", func(c *gee.Context) {
+		c.HTML(http.StatusOK, "<h1>Hello Gee</h1>")
+	})
+	r.GET("/hello", func(c *gee.Context) {
+		c.String(http.StatusOK, "hello %s,you`re at %s\n", c.Query("name"), c.Path)
+	})
+	r.GET("hello/:name", func(c *gee.Context) {
+		c.String(http.StatusOK, "hello %s, you're at %s\n", c.Param("name"), c.Path)
+	})
+	r.GET("/assets/*filepath", func(c *gee.Context) {
+		c.JSON(http.StatusOK, gee.H{
+			"filepath": c.Param("filepath"),
+		})
+	})
+	r.Run(":10020")
 }

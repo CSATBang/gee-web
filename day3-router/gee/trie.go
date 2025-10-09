@@ -9,6 +9,7 @@ type node struct {
 	isWild   bool    //是否精确匹配,part 含有:或者*时为true
 }
 
+// 用于插入
 func (n *node) matchChild(part string) *node {
 	for _, child := range n.children {
 		if child.part == part || child.isWild {
@@ -18,6 +19,7 @@ func (n *node) matchChild(part string) *node {
 	return nil
 }
 
+// 用于查询
 func (n *node) matchChildren(part string) []*node {
 	nodes := make([]*node, 0)
 	for _, child := range n.children {

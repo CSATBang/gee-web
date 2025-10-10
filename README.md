@@ -22,6 +22,10 @@ Gee 是一个用 Go 语言实现的简易 Web 框架，参考了 Gin 的设计�
 - 掌握 Go 语言在 Web 开发中的实践。  
 - 将学习过程与实现代码逐步记录在 GitHub。  
 
+## 🎯 补充说明
+
+- 在Day7错误恢复中，对于Recovery中间件的作用 正确理解应该是“保证所有的请求都能正常响应，否则panic后其他请求就没有回应了” 
+
 ## 🙌 致谢
 
 本项目基于极客兔兔的教程实现，原教程地址：[https://geektutu.com/post/gee.html](https://geektutu.com/post/gee.html)  
